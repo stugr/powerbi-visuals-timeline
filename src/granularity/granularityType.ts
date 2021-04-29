@@ -26,6 +26,7 @@
 
 export enum GranularityType {
     year,
+    half,
     quarter,
     month,
     week,

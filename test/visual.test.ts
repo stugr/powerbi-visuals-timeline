@@ -41,6 +41,7 @@ import { IGranularity } from "../src/granularity/granularity";
 import { GranularityBase } from "../src/granularity/granularityBase";
 import { GranularityType } from "../src/granularity/granularityType";
 import { MonthGranularity } from "../src/granularity/monthGranularity";
+import { HalfGranularity } from "../src/granularity/halfGranularity";
 import { QuarterGranularity } from "../src/granularity/quarterGranularity";
 import { WeekGranularity } from "../src/granularity/weekGranularity";
 import { YearGranularity } from "../src/granularity/yearGranularity";

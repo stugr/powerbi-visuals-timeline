@@ -248,6 +248,9 @@ export class Timeline implements powerbiVisualsApi.extensibility.visual.IVisual 
             case GranularityType.quarter:
                 ({ startDate, endDate } = calendar.getQuarterPeriod(periodDate));
                 break;
+            case GranularityType.half:
+                ({ startDate, endDate } = calendar.getHalfPeriod(periodDate));
+                break;
             case GranularityType.year:
                 ({ startDate, endDate } = calendar.getYearPeriod(periodDate));
                 break;
@@ -315,16 +318,16 @@ export class Timeline implements powerbiVisualsApi.extensibility.visual.IVisual 
     private static TimelineMargins: ITimelineMargins = {
         BottomMargin: 10,
         CellHeight: 25,
-        CellWidth: 40,
+        CellWidth: 30,
         ElementWidth: 30,
         FramePadding: 5,
         HeightOffset: 75,
         LeftMargin: 15,
         LegendHeight: 50,
         LegendHeightRange: 20,
-        MaxCellHeight: 60,
-        MinCellHeight: 20,
-        MinCellWidth: 40,
+        MaxCellHeight: 45,
+        MinCellHeight: 15,
+        MinCellWidth: 30,
         PeriodSlicerRectHeight: 23,
         PeriodSlicerRectWidth: 15,
         RightMargin: 15,
@@ -537,6 +540,7 @@ export class Timeline implements powerbiVisualsApi.extensibility.visual.IVisual 
     private rangeTextSelection: D3Selection<any, any, any, any>;
     private mainGroupSelection: D3Selection<any, any, any, any>;
     private yearLabelsSelection: D3Selection<any, any, any, any>;
+    private halfLabelsSelection: D3Selection<any, any, any, any>;
     private quarterLabelsSelection: D3Selection<any, any, any, any>;
     private monthLabelsSelection: D3Selection<any, any, any, any>;
     private weekLabelsSelection: D3Selection<any, any, any, any>;
@@ -1239,6 +1243,7 @@ export class Timeline implements powerbiVisualsApi.extensibility.visual.IVisual 
             .classed(Timeline.TimelineSelectors.MainArea.className, true);
 
         this.yearLabelsSelection = this.mainGroupSelection.append("g");
+        this.halfLabelsSelection = this.mainGroupSelection.append("g");
         this.quarterLabelsSelection = this.mainGroupSelection.append("g");
         this.monthLabelsSelection = this.mainGroupSelection.append("g");
         this.weekLabelsSelection = this.mainGroupSelection.append("g");
@@ -1420,6 +1425,17 @@ export class Timeline implements powerbiVisualsApi.extensibility.visual.IVisual 
                     this.calculateYOffset(yPos),
                     granularityType === 0);
                 if (granularityType >= GranularityType.year) {
+                    yPos += yDiff;
+                }
+            }
+
+            if (timelineSettings.labels.displayAll || granularityType === GranularityType.half) {
+                this.renderLabels(
+                    extendedLabels.halfLabels,
+                    this.halfLabelsSelection,
+                    this.calculateYOffset(yPos),
+                    granularityType === 1);
+                if (granularityType >= GranularityType.half) {
                     yPos += yDiff;
                 }
             }

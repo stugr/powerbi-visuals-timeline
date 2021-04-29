@@ -332,21 +332,26 @@
                             },
                             {
                                 "value": "1",
+                                "displayName": "Half",
+                                "displayNameKey": "Visual_Granularity_Half"
+                            },
+                            {
+                                "value": "2",
                                 "displayName": "Quarter",
                                 "displayNameKey": "Visual_Granularity_Quarter"
                             },
                             {
-                                "value": "2",
+                                "value": "3",
                                 "displayName": "Month",
                                 "displayNameKey": "Visual_Granularity_Month"
                             },
                             {
-                                "value": "3",
+                                "value": "4",
                                 "displayName": "Week",
                                 "displayNameKey": "Visual_Granularity_Week"
                             },
                             {
-                                "value": "4",
+                                "value": "5",
                                 "displayName": "Day",
                                 "displayNameKey": "Visual_Granularity_Day"
                             }
@@ -357,6 +362,13 @@
                 "granularityYearVisibility": {
                     "displayName": "Year visibility",
                     "displayNameKey": "Visual_GranularityYearVisibility",
+                    "type": {
+                        "bool": true
+                    }
+                },
+                "granularityHalfVisibility": {
+                    "displayName": "Half visibility",
+                    "displayNameKey": "Visual_GranularityHalfVisibility",
                     "type": {
                         "bool": true
                     }

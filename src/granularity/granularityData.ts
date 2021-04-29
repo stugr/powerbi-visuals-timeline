@@ -33,6 +33,7 @@ import { IGranularityRenderProps } from "./granularityRenderProps";
 import { GranularityType } from "./granularityType";
 import { MonthGranularity } from "./monthGranularity";
 import { QuarterGranularity } from "./quarterGranularity";
+import { HalfGranularity } from "./halfGranularity";
 import { WeekGranularity } from "./weekGranularity";
 import { YearGranularity } from "./yearGranularity";
 
@@ -133,6 +134,7 @@ export class GranularityData {
         this.granularities = [];
 
         this.addGranularity(new YearGranularity(calendar, locale, localizationManager));
+        this.addGranularity(new HalfGranularity(calendar, locale));
         this.addGranularity(new QuarterGranularity(calendar, locale));
         this.addGranularity(new MonthGranularity(calendar, locale));
         this.addGranularity(new WeekGranularity(calendar, locale, localizationManager));
@@ -147,6 +149,9 @@ export class GranularityData {
                     : [],
                 monthLabels: granularity.getType() >= GranularityType.month
                     ? granularity.createLabels(this.granularities[GranularityType.month])
+                    : [],
+                halfLabels: granularity.getType() >= GranularityType.half
+                    ? granularity.createLabels(this.granularities[GranularityType.half])
                     : [],
                 quarterLabels: granularity.getType() >= GranularityType.quarter
                     ? granularity.createLabels(this.granularities[GranularityType.quarter])

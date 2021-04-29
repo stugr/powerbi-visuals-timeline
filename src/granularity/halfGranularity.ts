@@ -34,13 +34,13 @@ import { GranularityBase } from "./granularityBase";
 import { IGranularityRenderProps } from "./granularityRenderProps";
 import { GranularityType } from "./granularityType";
 
-export class DayGranularity extends GranularityBase {
+export class HalfGranularity extends GranularityBase {
     constructor(calendar: Calendar, locale: string) {
-        super(calendar, locale, Utils.GET_GRANULARITY_PROPS_BY_MARKER("D"));
+        super(calendar, locale, Utils.GET_GRANULARITY_PROPS_BY_MARKER("H"));
     }
 
     public render(props: IGranularityRenderProps, isFirst: boolean): Selection<any, any, any, any> {
-        if (!props.granularSettings.granularityDayVisibility) {
+        if (!props.granularSettings.granularityHalfVisibility) {
             return null;
         }
 
@@ -48,31 +48,28 @@ export class DayGranularity extends GranularityBase {
     }
 
     public getType(): GranularityType {
-        return GranularityType.day;
+        return GranularityType.half;
     }
 
     public splitDate(date: Date): (string | number)[] {
         return [
-            this.shortMonthName(date),
-            date.getDate(),
+            this.halfText(date),
             this.calendar.determineYear(date),
         ];
     }
 
     public sameLabel(firstDatePeriod: ITimelineDatePeriod, secondDatePeriod: ITimelineDatePeriod): boolean {
-        return firstDatePeriod.startDate.getTime() === secondDatePeriod.startDate.getTime();
+        return this.halfText(firstDatePeriod.startDate) === this.halfText(secondDatePeriod.startDate)
+            && firstDatePeriod.year === secondDatePeriod.year;
     }
 
     public generateLabel(datePeriod: ITimelineDatePeriod): ITimelineLabel {
         const half: string = this.halfText(datePeriod.startDate);
-        const quarter: string = this.quarterText(datePeriod.startDate);
-        const monthName: string = this.shortMonthName(datePeriod.startDate);
-        const title: string = `${monthName} ${datePeriod.startDate.getDate()} - ${datePeriod.year}, ${quarter} W${datePeriod.week[0]}`;
 
         return {
             id: datePeriod.index,
-            text: datePeriod.startDate.getDate().toLocaleString(),
-            title,
+            text: half,
+            title: `${half} ${datePeriod.year}`,
         };
     }
 }

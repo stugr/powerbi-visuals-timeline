@@ -79,6 +79,7 @@ export class GranularityBase implements IGranularity {
     private granularityProps: IGranularityName = null;
 
     private DefaultQuarter: number = 3;
+    private DefaultHalf: number = 1;
 
     constructor(calendar: Calendar, private locale: string, granularityProps: IGranularityName) {
         this.calendar = calendar;
@@ -288,6 +289,29 @@ export class GranularityBase implements IGranularity {
         quarter++;
 
         return `Q${quarter}`;
+    }
+
+    /**
+     * Returns the date's half name (e.g. H1, H2)
+     * @param date A date
+     */
+     protected halfText(date: Date): string {
+        let half: number = this.DefaultHalf;
+        let year: number = this.calendar.determineYear(date);
+
+        while (date < this.calendar.getHalfStartDate(year, half)) {
+            if (half > 0) {
+                half--;
+            }
+            else {
+                half = this.DefaultHalf;
+                year--;
+            }
+        }
+
+        half++;
+
+        return `H${half}`;
     }
 
     private renderSlider(

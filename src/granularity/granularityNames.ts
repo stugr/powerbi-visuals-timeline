@@ -34,6 +34,11 @@ export const GranularityNames: IGranularityName[] = [
         name: "year",
         nameKey: "Visual_Granularity_Year",
     }, {
+        granularityType: GranularityType.half,
+        marker: "H",
+        name: "half",
+        nameKey: "Visual_Granularity_Half",
+    }, {
         granularityType: GranularityType.quarter,
         marker: "Q",
         name: "quarter",

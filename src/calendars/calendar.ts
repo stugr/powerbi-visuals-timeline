@@ -42,12 +42,14 @@ export interface IPeriodDates {
 
 export class Calendar {
     private static QuarterFirstMonths: number[] = [0, 3, 6, 9];
+    private static HalfFirstMonths: number[] = [0, 6];
 
     protected firstDayOfWeek: number;
     protected firstMonthOfYear: number;
     protected firstDayOfYear: number;
     protected dateOfFirstWeek: IDateDictionary;
     protected dateOfFirstFullWeek: IDateDictionary;
+    protected halfFirstMonths: number[];
     protected quarterFirstMonths: number[];
     protected isDaySelection: boolean;
     protected EmptyYearOffset: number = 0;
@@ -63,6 +65,10 @@ export class Calendar {
         this.dateOfFirstFullWeek = {};
 
         this.quarterFirstMonths = Calendar.QuarterFirstMonths.map((monthIndex: number) => {
+            return monthIndex + this.firstMonthOfYear;
+        });
+
+        this.halfFirstMonths = Calendar.HalfFirstMonths.map((monthIndex: number) => {
             return monthIndex + this.firstMonthOfYear;
         });
     }
@@ -166,6 +172,27 @@ export class Calendar {
 
         const startDate: Date = this.getQuarterStartDate(date.getFullYear(), quarterIndex);
         const endDate: Date = this.getQuarterEndDate(startDate);
+
+        return { startDate, endDate };
+    }
+
+    public getHalfIndex(date: Date): number {
+        return Math.floor(date.getMonth() / 6);
+    }
+
+    public getHalfStartDate(year: number, halfIndex: number): Date {
+        return new Date(year, this.halfFirstMonths[halfIndex], this.firstDayOfYear);
+    }
+
+    public getHalfEndDate(date: Date): Date {
+        return new Date(date.getFullYear(), date.getMonth() + 6, this.firstDayOfYear);
+    }
+
+    public getHalfPeriod(date: Date): IPeriodDates {
+        const halfIndex = this.getHalfIndex(date);
+
+        const startDate: Date = this.getHalfStartDate(date.getFullYear(), halfIndex);
+        const endDate: Date = this.getHalfEndDate(startDate);
 
         return { startDate, endDate };
     }

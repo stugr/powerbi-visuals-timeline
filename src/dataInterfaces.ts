@@ -83,6 +83,7 @@ export interface ITimelineLabel {
 
 export interface IExtendedLabel {
     yearLabels?: ITimelineLabel[];
+    halfLabels?: ITimelineLabel[];
     quarterLabels?: ITimelineLabel[];
     monthLabels?: ITimelineLabel[];
     weekLabels?: ITimelineLabel[];

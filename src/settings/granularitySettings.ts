@@ -32,6 +32,7 @@ export class GranularitySettings {
     public sliderColor: string = "#AAAAAA";
     public granularity: GranularityType = GranularityType.month;
     public granularityYearVisibility: boolean = true;
+    public granularityHalfVisibility: boolean = true;
     public granularityQuarterVisibility: boolean = true;
     public granularityMonthVisibility: boolean = true;
     public granularityWeekVisibility: boolean = true;
